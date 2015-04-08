@@ -20,7 +20,9 @@ fn hello(req: Request, res: Response<Fresh>) {
     println!("remoteAddy: {}", req.remote_addr);
     println!("method: {}", req.method);
     
-    res.write_all(b"Hello").unwrap();
+    let compound = format!("{} request for {} from {}", req.method, path, req.remote_addr);
+
+    res.write_all(compound.as_bytes()).unwrap();
     res.end().unwrap();
 }
 
